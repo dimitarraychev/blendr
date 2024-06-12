@@ -15,14 +15,14 @@ import {
 } from "@/components/ui/form";
 
 import { useForm } from "react-hook-form";
-import { signUpValidation } from "@/lib/validation";
-import { Loader } from "lucide-react";
+import { SignUpValidation } from "@/lib/validation";
 import { Link, useNavigate } from "react-router-dom";
 import {
 	useCreateUserAccount,
 	useSignInAccount,
 } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
+import Loader from "@/components/shared/Loader";
 
 function SignUpForm() {
 	const { toast } = useToast();
@@ -34,8 +34,8 @@ function SignUpForm() {
 
 	const { mutateAsync: signInAccount } = useSignInAccount();
 
-	const form = useForm<z.infer<typeof signUpValidation>>({
-		resolver: zodResolver(signUpValidation),
+	const form = useForm<z.infer<typeof SignUpValidation>>({
+		resolver: zodResolver(SignUpValidation),
 		defaultValues: {
 			name: "",
 			username: "",
@@ -44,7 +44,7 @@ function SignUpForm() {
 		},
 	});
 
-	async function onSubmit(values: z.infer<typeof signUpValidation>) {
+	async function onSubmit(values: z.infer<typeof SignUpValidation>) {
 		const newUser = await createUserAccount(values);
 
 		if (!newUser) {

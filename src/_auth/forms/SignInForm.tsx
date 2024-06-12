@@ -15,11 +15,11 @@ import {
 } from "@/components/ui/form";
 
 import { useForm } from "react-hook-form";
-import { signInValidation } from "@/lib/validation";
-import { Loader } from "lucide-react";
+import { SignInValidation } from "@/lib/validation";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignInAccount } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
+import Loader from "@/components/shared/Loader";
 
 function SignInForm() {
 	const { toast } = useToast();
@@ -28,15 +28,15 @@ function SignInForm() {
 
 	const { mutateAsync: signInAccount } = useSignInAccount();
 
-	const form = useForm<z.infer<typeof signInValidation>>({
-		resolver: zodResolver(signInValidation),
+	const form = useForm<z.infer<typeof SignInValidation>>({
+		resolver: zodResolver(SignInValidation),
 		defaultValues: {
 			email: "",
 			password: "",
 		},
 	});
 
-	async function onSubmit(values: z.infer<typeof signInValidation>) {
+	async function onSubmit(values: z.infer<typeof SignInValidation>) {
 		const session = await signInAccount({
 			email: values.email,
 			password: values.password,
