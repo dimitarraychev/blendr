@@ -1,6 +1,10 @@
 import Loader from "@/components/shared/Loader";
 import PostCard from "@/components/shared/PostCard";
-import { useGetRecentPosts } from "@/lib/react-query/queriesAndMutations";
+import UserCard from "@/components/shared/UserCard";
+import {
+	useGetRecentPosts,
+	useGetUsers,
+} from "@/lib/react-query/queriesAndMutations";
 import { Models } from "appwrite";
 
 function Home() {
@@ -9,6 +13,12 @@ function Home() {
 		isPending: isPostLoading,
 		isError: isErrorPosts,
 	} = useGetRecentPosts();
+
+	const {
+		data: creators,
+		isLoading: isUserLoading,
+		isError: isErrorCreators,
+	} = useGetUsers();
 
 	return (
 		<div className="flex flex-1">
@@ -28,6 +38,20 @@ function Home() {
 					)}
 				</div>
 			</div>
+			{isUserLoading && !creators ? (
+				<Loader />
+			) : (
+				<div className="home-creators">
+					<h3 className="h4-bold md:h3-bold text-left w-full">
+						Top Creators
+					</h3>
+					<ul className="w-full grid grid-cols-2 place-items-center gap-7">
+						{creators?.documents.map((user: Models.Document) => (
+							<UserCard key={user.$id} user={user} />
+						))}
+					</ul>
+				</div>
+			)}
 		</div>
 	);
 }
