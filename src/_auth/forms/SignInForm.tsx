@@ -126,7 +126,6 @@ function SignInForm() {
 							to="/sign-up"
 							className="text-primary-500 text-small-semibold ml-1"
 						>
-							{" "}
 							Register
 						</Link>
 					</p>
