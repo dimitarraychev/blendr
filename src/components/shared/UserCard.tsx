@@ -4,7 +4,7 @@ import { Models } from "appwrite";
 
 const UserCard = ({ user }: { user: Models.Document }) => {
 	return (
-		<div className="flex-center flex-col gap-2 border border-dark-4 rounded-[20px] px-3 py-4 w-full">
+		<div className="user-card w-full">
 			<Link to={`/profile/${user.$id}`} className="flex-center flex-col">
 				<img
 					src={user.imageUrl}
