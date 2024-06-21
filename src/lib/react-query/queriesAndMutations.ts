@@ -13,6 +13,7 @@ import {
 	getInfinitePosts,
 	getPostById,
 	getRecentPosts,
+	getUserProfile,
 	getUsers,
 	likePost,
 	savePost,
@@ -134,6 +135,14 @@ export const useGetCurrentUser = () => {
 	return useQuery({
 		queryKey: [QUERY_KEYS.GET_CURRENT_USER],
 		queryFn: getCurrentUser,
+	});
+};
+
+export const useGetUserProfile = (userId: string) => {
+	return useQuery({
+		queryKey: [QUERY_KEYS.GET_USER_BY_ID, userId],
+		queryFn: () => getUserProfile(userId),
+		enabled: !!userId,
 	});
 };
 
