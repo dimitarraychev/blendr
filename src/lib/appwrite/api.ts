@@ -85,6 +85,20 @@ export async function getCurrentUser() {
 	}
 }
 
+export async function getUserProfile(userId: string) {
+	try {
+		const userProfile = await db.getDocument(
+			appwriteConfig.databaseId,
+			appwriteConfig.userCollectionId,
+			userId
+		);
+
+		return userProfile;
+	} catch (error) {
+		console.log(error);
+	}
+}
+
 export async function signOutAccount() {
 	try {
 		const session = await account.deleteSession("current");
